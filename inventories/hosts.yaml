@@ -11,4 +11,4 @@ all:
         jmedia:
           ansible_host: 192.168.2.50
   vars:
-    ansible_user: ansible%
+    ansible_user: ansible

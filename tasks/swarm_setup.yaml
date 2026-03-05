@@ -35,3 +35,33 @@
       - docker-buildx-plugin
       - docker-compose-plugin
     state: present
+
+- name: Ensure Docker service is enabled and started
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+# Allow users to run docker without sudo
+- name: Add ansible user to docker group
+  user:
+    name: ansible
+    groups: docker
+    append: yes
+
+- name: Add jacques user to docker group
+  user:
+    name: jacques
+    groups: docker
+    append: yes
+
+# Check swarm state (so we don't reinitialize every run)
+- name: Check if swarm is already active
+  command: docker info -f '{{ "{{.Swarm.LocalNodeState}}" }}'
+  register: swarm_state
+  changed_when: false
+
+# Initialize swarm if not active
+- name: Initialize Docker Swarm
+  command: docker swarm init --advertise-addr {{ ansible_default_ipv4.address }}
+  when: swarm_state.stdout != "active"

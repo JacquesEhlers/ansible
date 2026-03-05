@@ -1,0 +1,8 @@
+---
+- name: Update packages on all servers
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Run package update tasks
+      ansible.builtin.include_tasks: ../tasks/update_packages.yaml

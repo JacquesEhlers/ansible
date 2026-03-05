@@ -7,13 +7,13 @@ all:
           ansible_host: 192.168.2.70
         node01:
           ansible_host: 192.168.2.71
-        node02:
-          ansible_host: 192.168.2.72
+        jmedia:
+          ansible_host: 192.168.2.50
 
     swarm_nodes:
       hosts:
-        jmedia:
-          ansible_host: 192.168.2.50
+        node02:
+          ansible_host: 192.168.2.72
 
   vars:
     ansible_user: ansible

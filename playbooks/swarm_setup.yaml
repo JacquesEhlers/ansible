@@ -1,0 +1,9 @@
+---
+- name: Prepare and install Docker Swarm on swarm nodes
+  hosts: swarm_nodes
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Run swarm setup tasks
+      ansible.builtin.include_tasks: ../tasks/swarm_setup.yaml
